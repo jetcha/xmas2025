@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  /* Material You Inspired Palette (Indigo/Violet) */
+  --md-sys-color-primary: #6750A4;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #EADDFF;
+  --md-sys-color-on-primary-container: #21005D;
+
+  --md-sys-color-secondary: #625B71;
+  --md-sys-color-on-secondary: #FFFFFF;
+  --md-sys-color-secondary-container: #E8DEF8;
+  --md-sys-color-on-secondary-container: #1D192B;
+
+  --md-sys-color-tertiary: #7D5260;
+  --md-sys-color-on-tertiary: #FFFFFF;
+  --md-sys-color-tertiary-container: #FFD8E4;
+  --md-sys-color-on-tertiary-container: #31111D;
+
+  --md-sys-color-error: #B3261E;
+  --md-sys-color-on-error: #FFFFFF;
+
+  --md-sys-color-background: #FFFBFE;
+  --md-sys-color-on-background: #1C1B1F;
+
+  --md-sys-color-surface: #FFFBFE;
+  --md-sys-color-on-surface: #1C1B1F;
+  --md-sys-color-surface-variant: #E7E0EC;
+  --md-sys-color-on-surface-variant: #49454F;
+
+  --md-sys-color-outline: #79747E;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #D0BCFF;
+    --md-sys-color-on-primary: #381E72;
+    --md-sys-color-primary-container: #4F378B;
+    --md-sys-color-on-primary-container: #EADDFF;
+
+    --md-sys-color-secondary: #CCC2DC;
+    --md-sys-color-on-secondary: #332D41;
+    --md-sys-color-secondary-container: #4A4458;
+    --md-sys-color-on-secondary-container: #E8DEF8;
+
+    --md-sys-color-tertiary: #EFB8C8;
+    --md-sys-color-on-tertiary: #492532;
+    --md-sys-color-tertiary-container: #633B48;
+    --md-sys-color-on-tertiary-container: #FFD8E4;
+
+    --md-sys-color-background: #1C1B1F;
+    --md-sys-color-on-background: #E6E1E5;
+
+    --md-sys-color-surface: #1C1B1F;
+    --md-sys-color-on-surface: #E6E1E5;
+    --md-sys-color-surface-variant: #49454F;
+    --md-sys-color-on-surface-variant: #CAC4D0;
+
+    --md-sys-color-outline: #938F99;
+  }
+}
+
+body {
+  color: var(--md-sys-color-on-background);
+  background: var(--md-sys-color-background);
+  font-family: 'Roboto', sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] px-6 py-2.5 rounded-full font-medium shadow-sm hover:shadow-md transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] px-6 py-2.5 rounded-full font-medium hover:brightness-95 transition-all active:scale-95;
+  }
+
+  .btn-text {
+    @apply text-[var(--md-sys-color-primary)] px-4 py-2 rounded-full font-medium hover:bg-[var(--md-sys-color-primary-container)]/10 transition-colors;
+  }
+
+  .card {
+    @apply bg-[var(--md-sys-color-surface)] text-[var(--md-sys-color-on-surface)] rounded-3xl p-6 shadow-sm border border-[var(--md-sys-color-outline)]/20;
+  }
+
+  .card-elevated {
+    @apply bg-[var(--md-sys-color-surface-variant)] text-[var(--md-sys-color-on-surface-variant)] rounded-2xl p-4 shadow-md;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-t-lg border-b-2 border-[var(--md-sys-color-outline)] bg-[var(--md-sys-color-surface-variant)]/30 text-[var(--md-sys-color-on-surface)] focus:border-[var(--md-sys-color-primary)] focus:bg-[var(--md-sys-color-surface-variant)]/50 outline-none transition-all placeholder:text-[var(--md-sys-color-on-surface-variant)]/60;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
