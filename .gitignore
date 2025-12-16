@@ -1,8 +1,42 @@
+# Dependencies
 node_modules
+
+# Next.js
 .next
-.env.local
+.vercel
+
+# Environment variables
+.env
 .env*.local
+
+# Build outputs
 dist
 build
-.DS_Store
+out
+
+# Testing
 *.log
+test_output.log
+test_report.md
+coverage
+
+# OS files
+.DS_Store
+desktop.ini
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Local scripts (Windows batch files for your local dev)
+*.bat
+
+# Generated files
+public_ip.txt
+
+# Optional: Planning/task files (if you don't want them in repo)
+# implementation_plan.md
+# task.md

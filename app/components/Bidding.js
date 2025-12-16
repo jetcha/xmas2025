@@ -79,24 +79,8 @@ export default function Bidding() {
 
                 {currentGift.winner ? (
                     <div className="text-center mb-6 animate-fade-in">
-                        <p className="text-[var(--md-sys-color-on-surface-variant)] mb-2">{t('reveal.winner')}</p>
-                        <p className="text-3xl font-bold text-[var(--md-sys-color-tertiary)]">{currentGift.winner}</p>
-                        {currentGift.winner === user.name && (
-                            <p className="text-sm text-[var(--md-sys-color-tertiary)] mt-2 font-medium">{t('bidding.winner_msg')}</p>
-                        )}
-
-                        {/* Reason & Rankings */}
-                        <div className="mt-6 p-4 bg-[var(--md-sys-color-surface-variant)]/50 rounded-xl border border-[var(--md-sys-color-outline)]/20">
-                            <p className="text-sm text-[var(--md-sys-color-on-surface-variant)] mb-2">{currentGift.reason}</p>
-                            <div className="flex flex-col gap-2 mt-3">
-                                {currentGift.rankings && currentGift.rankings.map((bid, idx) => (
-                                    <div key={idx} className="flex justify-between text-sm px-4 py-2 bg-[var(--md-sys-color-surface)] rounded-lg shadow-sm">
-                                        <span className="text-[var(--md-sys-color-on-surface)]">#{idx + 1} {bid.bidder}</span>
-                                        <span className="text-[var(--md-sys-color-primary)] font-bold">{bid.amount}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <p className="text-[var(--md-sys-color-on-surface-variant)] mb-2 font-bold text-xl">{t('bidding.title')}</p>
+                        <p className="text-[var(--md-sys-color-primary)] font-medium mt-4">{t('bidding.waiting_others')}</p>
                     </div>
                 ) : (
                     isWinner ? (

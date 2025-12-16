@@ -6,8 +6,10 @@ export const translations = {
         'unknown_phase': '未知階段',
 
         // Login
-        'login.title': '眾裡尋它千百度',
-        'login.subtitle': '請輸入您的暱稱加入交換禮物',
+        'login.title_1': '歡迎加入',
+        'login.title_2': '2025年年底強檔活動',
+        'login.title_3': '交換禮物',
+        'login.subtitle': '主題:眾裡尋它千百度',
         'login.placeholder': '您的暱稱',
         'login.button': '加入活動',
 
@@ -17,12 +19,17 @@ export const translations = {
         'submit.hint_placeholder': '關於禮物的提示...',
         'submit.button': '提交禮物提示',
         'submit.waiting': '等待其他玩家...',
+        'submit.example_title': '範例',
+        'submit.example_gift': '禮物: 周杰倫的半島鐵盒',
+        'submit.example_hint1': '提示1: 收納達人的最佳利器',
+        'submit.example_hint2': '提示2: 連亞洲天王都愛不釋手',
+        'submit.example_hint3': '提示3: 為什麼這樣子',
 
         // Waiting Room
         'waiting.title': '等候室',
-        'waiting.subtitle': '等待主持人開始競標...',
+        'waiting.subtitle': '等待所有玩家加入...',
         'waiting.joined_users': '已加入玩家',
-        'waiting.start_button': '開始競標',
+        'waiting.start_button': '開始交換禮物',
 
         // Bidding
         'bidding.title': '競標階段',
@@ -76,6 +83,7 @@ export const translations = {
         'reveal.rated': '已評分',
         'reveal.waiting_list': '等待中：',
         'reveal.own_gift': '這是您提供的禮物',
+        'reveal.waiting_completion': '等待其他人評分完畢',
         'results.restart': '重新開始遊戲',
     },
     'en': {

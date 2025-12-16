@@ -31,6 +31,14 @@ export default function GiftSubmission() {
                     {t('submit.hint_placeholder')}
                 </p>
 
+                <div className="mb-6 p-4 bg-[var(--md-sys-color-surface-variant)] rounded-lg text-left text-sm text-[var(--md-sys-color-on-surface-variant)] italic">
+                    <p className="font-bold mb-2 text-[var(--md-sys-color-primary)]">{t('submit.example_title')}</p>
+                    <p>{t('submit.example_gift')}</p>
+                    <p>{t('submit.example_hint1')}</p>
+                    <p>{t('submit.example_hint2')}</p>
+                    <p>{t('submit.example_hint3')}</p>
+                </div>
+
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     {hints.map((hint, i) => (
                         <div key={i} className="relative">

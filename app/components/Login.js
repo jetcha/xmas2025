@@ -35,10 +35,12 @@ export default function Login() {
             <div className="card max-w-md w-full text-center animate-fade-in relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-[var(--md-sys-color-primary)]"></div>
 
-                <h1 className="text-3xl font-bold mb-2 text-[var(--md-sys-color-primary)]">
-                    {t('login.title')}
+                <h1 className="text-3xl font-bold mb-2 text-[var(--md-sys-color-primary)] flex flex-col gap-1">
+                    <span>{t('login.title_1')}</span>
+                    <span>{t('login.title_2')}</span>
+                    <span>{t('login.title_3')}</span>
                 </h1>
-                <p className="mb-8 text-[var(--md-sys-color-on-surface-variant)]">
+                <p className="mb-8 text-xl font-bold text-[var(--md-sys-color-on-surface-variant)]">
                     {t('login.subtitle')}
                 </p>
 
