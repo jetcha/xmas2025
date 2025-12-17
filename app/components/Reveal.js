@@ -13,19 +13,21 @@ export default function Reveal() {
     const currentGift = state.gifts[state.currentGiftIndex];
     const isProvider = currentGift.provider === user.name;
     const hasRated = state.ratings[currentGift.id]?.some(r => r.rater === user.name);
-    const totalSteps = currentGift.hints.length + 3; // hints + provider + winner + form
 
     useEffect(() => {
         setRevealStep(0);
+        const steps = currentGift.hints.length + 3;
+        
         const interval = setInterval(() => {
             setRevealStep(prev => {
-                if (prev < totalSteps) return prev + 1;
+                if (prev < steps) return prev + 1;
                 clearInterval(interval);
                 return prev;
             });
         }, 1500);
+        
         return () => clearInterval(interval);
-    }, [state.currentGiftIndex, totalSteps]);
+    }, [state.currentGiftIndex]);
 
     const handleRate = async (e) => {
         e.preventDefault();
