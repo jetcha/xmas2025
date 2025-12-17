@@ -18,6 +18,7 @@
         - [x] `Bidding.js`: Card-based gift display, clean action buttons.
         - [x] `Reveal.js`: Immersive reveal experience.
         - [x] `Results.js`: Ranked list with clear visual hierarchy.
+        - [x] **[NEW] `RulesModal.js`**: Global floating button to view game rules.
 - [x] **Verification**
     - [x] Verify Language Switcher persists and updates text.
     - [x] Verify UI responsiveness and aesthetics.
@@ -29,3 +30,14 @@
 - [x] **Hosting Improvements**
     - [x] Create `share_lan.bat` for local Wi-Fi sharing.
     - [x] Create `share_ngrok.bat` for reliable internet sharing.
+
+# Task: Display Bidding Results
+
+- [x] **Data Verification**
+    - [x] Check `GameContext.js` to ensure `bids` array contains `{bidder, amount}`.
+- [x] **UI Implementation**
+    - [x] Update `Bidding.js` to show a list of bidders and their amounts after the winner is determined.
+    - [x] Use a clean table design: Bidder Name | Amount.
+    - [x] Highlight the winner.
+    - [x] **Tie-Breaker**: Display random selection message if tied.
+    - [x] **Skip Rule**: If multiple users bid 0, skip the gift and move to end of queue.

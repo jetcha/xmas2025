@@ -42,6 +42,20 @@ export function GameProvider({ children }) {
         // Initial fetch
         fetchState();
 
+        // Restore session
+        const storedName = localStorage.getItem('exchange_user_name');
+        if (storedName) {
+            console.log('Restoring session for:', storedName);
+            setUser({ name: storedName });
+            // Note: We don't auto-join API here because the user might already exist.
+            // But if the server restarted (users cleared), the logic below (User not found)
+            // will catch it and log them out, which is correct behavior.
+
+            // OPTIONAL: If we want to AUTO-JOIN on refresh if missing from server:
+            // We can do that by checking state later. 
+            // For now, let's just restore local state so UI works if server has them.
+        }
+
         // Poll every 2s
         const interval = setInterval(fetchState, 2000);
         return () => clearInterval(interval);

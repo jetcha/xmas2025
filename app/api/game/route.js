@@ -19,9 +19,19 @@ export async function POST(request) {
 
     switch (action) {
         case 'JOIN':
-            if (!gameState.users.find(u => u.name === payload.name)) {
-                gameState.users.push({ name: payload.name, tokens: 10, hasSubmitted: false });
+            // Allow re-joining if already exists (idempotent)
+            const existingUser = gameState.users.find(u => u.name === payload.name);
+            if (existingUser) {
+                // User already exists, do nothing (success)
+                break;
             }
+
+            // Block NEW users if game has started
+            if (gameState.phase !== 'SUBMISSION') {
+                return NextResponse.json({ error: 'Game has already started' }, { status: 403 });
+            }
+
+            gameState.users.push({ name: payload.name, tokens: 10, hasSubmitted: false });
             break;
 
         case 'SUBMIT_GIFT':
@@ -114,9 +124,33 @@ export async function POST(request) {
 
             // Auto-Advance if everyone acknowledged
             if (giftToAck.acknowledgements.length >= gameState.users.length) {
-                // Go to REVEAL for the CURRENT gift
-                gameState.phase = 'REVEAL';
-                console.log('All winner acknowledgements received. Advancing to REVEAL for gift:', gameState.currentGiftIndex);
+
+                // Handle SKIPPED gift (Move to end, reset, resume bidding next)
+                if (giftToAck.winner === 'SKIPPED') {
+                    console.log('Gift Skipped due to 0-bid tie. Moving to end of queue.');
+
+                    // Reset Gift
+                    giftToAck.winner = null;
+                    giftToAck.bids = [];
+                    giftToAck.rankings = [];
+                    giftToAck.reason = '';
+                    giftToAck.acknowledgements = [];
+
+                    // Move to end
+                    const skippedGift = gameState.gifts.splice(gameState.currentGiftIndex, 1)[0];
+                    gameState.gifts.push(skippedGift);
+
+                    // IMPORTANT: Do NOT increment currentGiftIndex. 
+                    // The next gift has shifted into the current slot (index 0 usually).
+                    // Phase stays BIDDING. 
+                    // However, we need to ensure the client refreshes.
+                    console.log('Gift moved. Resuming BIDDING for new current gift.');
+
+                } else {
+                    // Normal Flow -> Go to REVEAL
+                    gameState.phase = 'REVEAL';
+                    console.log('All winner acknowledgements received. Advancing to REVEAL for gift:', gameState.currentGiftIndex);
+                }
             }
             break;
 
@@ -207,17 +241,24 @@ function resolveGift(gift, users) {
         const maxBid = gift.rankings[0].amount;
         const potentialWinners = gift.rankings.filter(b => b.amount === maxBid);
 
-        // 3. Pick Winner
+        // 3. Check for 0-Bid Tie (Skip Rule)
+        if (maxBid === 0 && potentialWinners.length > 1) {
+            gift.winner = 'SKIPPED';
+            gift.reason = '多位玩家出價 0，禮物流標並延後競標。';
+            return;
+        }
+
+        // 4. Pick Winner
         const winnerObj = potentialWinners[Math.floor(Math.random() * potentialWinners.length)];
         gift.winner = winnerObj.bidder;
 
-        // 4. Generate Reason
+        // 5. Generate Reason
         const bidDetails = gift.rankings.map(b => `${b.bidder} (${b.amount})`).join(', ');
         if (potentialWinners.length > 1) {
             const tiedNames = potentialWinners.map(w => w.bidder).join(', ');
             gift.reason = `最高出價為 ${maxBid} (${tiedNames})。隨機選中: ${gift.winner}。`;
 
-            // 5. Mercy Rule
+            // 6. Mercy Rule
             // If someone tied for max bid but lost, AND has 0 tokens, give 1 token back.
             potentialWinners.forEach(loser => {
                 if (loser.bidder !== gift.winner) {

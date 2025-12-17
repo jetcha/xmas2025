@@ -79,8 +79,67 @@ export default function Bidding() {
 
                 {currentGift.winner ? (
                     <div className="text-center mb-6 animate-fade-in">
-                        <p className="text-[var(--md-sys-color-on-surface-variant)] mb-2 font-bold text-xl">{t('bidding.title')}</p>
-                        <p className="text-[var(--md-sys-color-primary)] font-medium mt-4">{t('bidding.waiting_others')}</p>
+                        {currentGift.winner === 'SKIPPED' ? (
+                            <div className="p-6 bg-[var(--md-sys-color-error-container)]/30 border border-[var(--md-sys-color-error)]/20 rounded-xl mb-6">
+                                <p className="text-[var(--md-sys-color-error)] text-xl font-bold mb-2">🎁 {t('bidding.skipped_title')} 🎁</p>
+                                <p className="text-[var(--md-sys-color-on-surface-variant)]">{t('bidding.skipped_msg')}</p>
+                            </div>
+                        ) : (
+                            <p className="text-[var(--md-sys-color-on-surface-variant)] mb-2 font-bold text-xl">{t('bidding.title')}</p>
+                        )}
+
+                        {/* Bidding Results Table */}
+                        <div className="my-6 bg-[var(--md-sys-color-surface-variant)]/30 border border-[var(--md-sys-color-outline)]/20 rounded-xl overflow-hidden p-4">
+                            <h4 className="text-[var(--md-sys-color-on-surface)] font-bold mb-3">{t('bidding.results_header')}</h4>
+                            <div className="overflow-y-auto max-h-48">
+                                <table className="w-full text-sm">
+                                    <thead className="text-[var(--md-sys-color-on-surface-variant)] border-b border-[var(--md-sys-color-outline)]/20">
+                                        <tr>
+                                            <th className="pb-2 text-left pl-2">{t('bidding.col_bidder')}</th>
+                                            <th className="pb-2 text-right pr-2">{t('bidding.col_amount')}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-[var(--md-sys-color-on-surface)]">
+                                        {[...currentGift.bids].sort((a, b) => b.amount - a.amount).map((bid, idx) => (
+                                            <tr
+                                                key={idx}
+                                                className={`border-b border-[var(--md-sys-color-outline)]/10 last:border-0 ${bid.bidder === currentGift.winner ? 'bg-[var(--md-sys-color-tertiary-container)] text-[var(--md-sys-color-on-tertiary-container)] font-bold' : ''}`}
+                                            >
+                                                <td className="py-2 pl-2 text-left flex items-center gap-2">
+                                                    {bid.bidder === currentGift.winner && <span>👑</span>}
+                                                    {bid.bidder}
+                                                </td>
+                                                <td className="py-2 pr-2 text-right">{bid.amount}</td>
+                                            </tr>
+                                        ))}
+                                        {currentGift.bids.length === 0 && (
+                                            <tr>
+                                                <td colSpan="2" className="py-4 text-center text-[var(--md-sys-color-on-surface-variant)] italic">
+                                                    {t('bidding.no_bids')}
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {/* Tie Detection & Message */}
+                        {(() => {
+                            if (currentGift.winner === 'SKIPPED') return null; // Don't show tie msg if skipped
+                            const maxBid = Math.max(...currentGift.bids.map(b => b.amount));
+                            const winners = currentGift.bids.filter(b => b.amount === maxBid);
+                            if (winners.length > 1) {
+                                return (
+                                    <div className="mb-4 text-center p-3 bg-[var(--md-sys-color-tertiary-container)]/50 rounded-lg animate-pulse">
+                                        <p className="text-[var(--md-sys-color-tertiary)] font-bold text-sm">
+                                            {t('bidding.tie_msg')}
+                                        </p>
+                                    </div>
+                                );
+                            }
+                            return null;
+                        })()}
                     </div>
                 ) : (
                     isWinner ? (

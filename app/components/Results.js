@@ -1,10 +1,11 @@
-'use client';
+import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Results() {
     const { state, resetGame } = useGame();
     const { t } = useLanguage();
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const calculateTotalScore = (giftId) => {
         const giftRatings = state.ratings[giftId] || [];
@@ -43,11 +44,35 @@ export default function Results() {
 
                 <div className="text-center mt-8">
                     <p className="text-[var(--md-sys-color-on-surface-variant)] mb-6">{t('app.title')}</p>
-                    <button onClick={resetGame} className="btn-secondary w-full">
+                    <button onClick={() => setShowConfirm(true)} className="btn-secondary w-full">
                         {t('results.restart')}
                     </button>
                 </div>
             </div>
+
+            {/* Restart Confirmation Modal */}
+            {showConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-[var(--md-sys-color-surface)] w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden p-6 animate-slide-up">
+                        <h3 className="text-xl font-bold text-[var(--md-sys-color-on-surface)] mb-4">{t('results.confirm_restart_title')}</h3>
+                        <p className="text-[var(--md-sys-color-on-surface-variant)] mb-6">{t('results.confirm_restart_msg')}</p>
+                        <div className="flex gap-4 justify-end">
+                            <button
+                                onClick={() => setShowConfirm(false)}
+                                className="px-4 py-2 rounded-lg text-[var(--md-sys-color-primary)] font-medium hover:bg-[var(--md-sys-color-surface-variant)] transition-colors"
+                            >
+                                {t('results.confirm_no')}
+                            </button>
+                            <button
+                                onClick={resetGame}
+                                className="px-4 py-2 bg-[var(--md-sys-color-error)] text-[var(--md-sys-color-on-error)] rounded-lg font-bold shadow-md hover:brightness-110 active:scale-95 transition-all"
+                            >
+                                {t('results.confirm_yes')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

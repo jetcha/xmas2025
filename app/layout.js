@@ -2,6 +2,7 @@ import './globals.css';
 import { GameProvider } from './context/GameContext';
 import { LanguageProvider } from './context/LanguageContext';
 import GlobalResetButton from './components/GlobalResetButton';
+import RulesModal from './components/RulesModal';
 
 export const metadata = {
   title: '交換禮物 2025',
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
         <LanguageProvider>
           <GameProvider>
             <GlobalResetButton />
+            <RulesModal />
             {children}
           </GameProvider>
         </LanguageProvider>

@@ -45,6 +45,14 @@ export const translations = {
         'bidding.waiting_others': '等待其他人出價...',
         'bidding.winner_ack': '確認',
         'bidding.winner_msg': '恭喜！您贏得了這份禮物！',
+        'bidding.winner_ack': '確認',
+        'bidding.winner_msg': '恭喜！您贏得了這份禮物！',
+        'bidding.results_header': '出價紀錄',
+        'bidding.col_bidder': '玩家',
+        'bidding.col_amount': '金額',
+        'bidding.tie_msg': '最高出價相同，已隨機選擇得主 🎲',
+        'bidding.skipped_title': '流標確認',
+        'bidding.skipped_msg': '因多位玩家出價 0，本禮物將延後至最後重新競標。',
 
         // Reveal
         'reveal.title': '開獎時刻',
@@ -59,11 +67,15 @@ export const translations = {
         'reveal.ack_rating': '確認',
 
         // Results
-        'results.title': '最終結果',
+        'results.title': '交換禮物最終結果',
         'results.rank': '排名',
         'results.name': '玩家',
         'results.score': '總分',
         'results.gift': '收到的禮物',
+        'results.confirm_restart_title': '確認重新開始？',
+        'results.confirm_restart_msg': '這將會清除所有遊戲數據並回到初始畫面。確定要執行嗎？',
+        'results.confirm_yes': '確定',
+        'results.confirm_no': '取消',
 
         // Global Reset
         'reset.confirm_1': '確定要強制重置整個遊戲嗎？所有進度將會遺失！',
@@ -85,6 +97,18 @@ export const translations = {
         'reveal.own_gift': '這是您提供的禮物',
         'reveal.waiting_completion': '等待其他人評分完畢',
         'results.restart': '重新開始遊戲',
+
+        // Rules
+        'rules.button': '遊戲規則',
+        'rules.title': '活動規則',
+        'rules.general_title': '遊戲目的',
+        'rules.general_content': '遊戲目的是讓玩家透過競標策略，爭取自己最想要的禮物！',
+        'rules.submission_title': '提示指南',
+        'rules.submission_content': '給出「誘人」的提示讓人想競標你的禮物，但切記「不可瞎掰」或給出虛假資訊。',
+        'rules.bidding_title': '競標機制',
+        'rules.bidding_content': '玩家根據提示出價，價高者得。若最高價相同(>0)則隨機決定；若皆為0分則流標(延後競標)。',
+        'rules.rating_title': '評分標準',
+        'rules.rating_content': '• 故事性：送禮理由與主題契合度。\n• 實用性：平時是否實用 (1分=垃圾 / 10分=非常實用)。\n• 吸引力：外觀、氣味、顏色等整體吸引力。',
     },
     'en': {
         // General
@@ -125,6 +149,12 @@ export const translations = {
         'bidding.waiting_others': 'Waiting for others to bid...',
         'bidding.winner_ack': 'Acknowledge Win',
         'bidding.winner_msg': 'Congratulations! You won this gift!',
+        'bidding.results_header': 'Bidding Results',
+        'bidding.col_bidder': 'Bidder',
+        'bidding.col_amount': 'Amount',
+        'bidding.tie_msg': 'Highest bids tied. Winner selected randomly 🎲',
+        'bidding.skipped_title': 'Gift Skipped',
+        'bidding.skipped_msg': 'Due to multiple 0-token bids, this gift has been moved to the end of the queue.',
         'bidding.already_won': 'You have already won a gift.',
         'bidding.own_gift': 'This is your gift.',
         'bidding.placed': 'Bid Placed',
@@ -155,6 +185,10 @@ export const translations = {
         'results.score': 'Total Score',
         'results.gift': 'Gift Received',
         'results.restart': 'Restart Game',
+        'results.confirm_restart_title': 'Confirm Restart?',
+        'results.confirm_restart_msg': 'This will clear all game data and return to the login screen. Are you sure?',
+        'results.confirm_yes': 'Yes',
+        'results.confirm_no': 'Cancel',
 
         // Global Reset
         'reset.confirm_1': 'Are you sure you want to reset the game? All progress will be lost!',
@@ -162,5 +196,17 @@ export const translations = {
         'reset.password_prompt': 'Enter admin password to confirm reset:',
         'reset.password_error': 'Incorrect password!',
         'reset.button': 'RESET',
+
+        // Rules
+        'rules.button': 'Rules',
+        'rules.title': 'Game Rules',
+        'rules.general_title': 'Objective',
+        'rules.general_content': 'The goal is to use your tokens wisely to bid for and win the gifts you truly want!',
+        'rules.submission_title': 'Hint Guidelines',
+        'rules.submission_content': 'Provide "tempting" hints to attract bids, but do NOT lie or make things up.',
+        'rules.bidding_title': 'Bidding',
+        'rules.bidding_content': 'Bid based on hints. Highest wins. Ties (>0) are random. 0-ties skip the gift.',
+        'rules.rating_title': 'Rating Criteria',
+        'rules.rating_content': '• Story: Relevance to theme.\n• Utility: Practicality (1=Trash / 10=Very Useful).\n• Attraction: Overall appeal (looks, smell, etc).',
     }
 };
