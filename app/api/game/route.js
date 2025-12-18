@@ -135,6 +135,8 @@ export async function POST(request) {
                     giftToAck.rankings = [];
                     giftToAck.reason = '';
                     giftToAck.acknowledgements = [];
+                    // Increment skip count to track failures
+                    giftToAck.skipCount = (giftToAck.skipCount || 0) + 1;
 
                     // Move to end
                     const skippedGift = gameState.gifts.splice(gameState.currentGiftIndex, 1)[0];
@@ -243,8 +245,13 @@ function resolveGift(gift, users) {
 
         // 3. Check for 0-Bid Tie (Skip Rule)
         if (maxBid === 0 && potentialWinners.length > 1) {
-            gift.winner = 'SKIPPED';
-            gift.reason = '多位玩家出價 0，禮物流標並延後競標。';
+            if ((gift.skipCount || 0) >= 1) {
+                // Second failure -> Force Assign
+                forceAssign(gift, users);
+            } else {
+                gift.winner = 'SKIPPED';
+                gift.reason = '多位玩家出價 0，禮物流標並延後競標。';
+            }
             return;
         }
 
@@ -273,7 +280,33 @@ function resolveGift(gift, users) {
             gift.reason = `最高出價者為 ${gift.winner} (${maxBid})。`;
         }
     } else {
-        gift.winner = 'NO_BIDDER';
-        gift.reason = '無人下標';
+        // No Bids
+        if ((gift.skipCount || 0) >= 1) {
+            // Second failure -> Force Assign
+            forceAssign(gift, users);
+        } else {
+            gift.winner = 'SKIPPED'; // Changed from NO_BIDDER to SKIPPED to recycle
+            gift.reason = '無人下標，禮物流標並延後競標。';
+        }
+    }
+}
+
+function forceAssign(gift, users) {
+    // Exclude 'SKIPPED' and 'NO_BIDDER' (though NO_BIDDER shouldn't exist if we use SKIPPED)
+    // We want real winners.
+    const allWinners = gameState.gifts.map(g => g.winner).filter(w => w && w !== 'SKIPPED' && w !== 'NO_BIDDER' && w !== 'UNASSIGNABLE');
+
+    const eligible = users.filter(u =>
+        !allWinners.includes(u.name) &&
+        u.name !== gift.provider
+    );
+
+    if (eligible.length > 0) {
+        const winnerUser = eligible[Math.floor(Math.random() * eligible.length)];
+        gift.winner = winnerUser.name;
+        gift.reason = `因為二次流標，系統強制隨機分配給：${winnerUser.name}。`;
+    } else {
+        gift.winner = 'UNASSIGNABLE'; // Should rarely happen unless mathematical impossibility
+        gift.reason = '因為二次流標且無合適候選人（其餘皆已得獎）。';
     }
 }

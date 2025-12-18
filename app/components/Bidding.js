@@ -124,22 +124,14 @@ export default function Bidding() {
                             </div>
                         </div>
 
-                        {/* Tie Detection & Message */}
-                        {(() => {
-                            if (currentGift.winner === 'SKIPPED') return null; // Don't show tie msg if skipped
-                            const maxBid = Math.max(...currentGift.bids.map(b => b.amount));
-                            const winners = currentGift.bids.filter(b => b.amount === maxBid);
-                            if (winners.length > 1) {
-                                return (
-                                    <div className="mb-4 text-center p-3 bg-[var(--md-sys-color-tertiary-container)]/50 rounded-lg animate-pulse">
-                                        <p className="text-[var(--md-sys-color-tertiary)] font-bold text-sm">
-                                            {t('bidding.tie_msg')}
-                                        </p>
-                                    </div>
-                                );
-                            }
-                            return null;
-                        })()}
+                        {/* Reason Display */}
+                        {currentGift.reason && (
+                            <div className="mb-4 text-center p-3 bg-[var(--md-sys-color-tertiary-container)]/50 rounded-lg animate-pulse">
+                                <p className="text-[var(--md-sys-color-tertiary)] font-bold text-sm">
+                                    {currentGift.reason}
+                                </p>
+                            </div>
+                        )}
                     </div>
                 ) : (
                     isWinner ? (
