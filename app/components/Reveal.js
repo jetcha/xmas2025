@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 export default function Reveal() {
     const { state, user, submitRating, acknowledgeRating } = useGame();
-    const [scores, setScores] = useState({ story: 5, utility: 5, attraction: 5 });
+    const [scores, setScores] = useState({ utility: 5, attraction: 5 });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [revealStep, setRevealStep] = useState(0);
     const { t } = useLanguage();
@@ -76,18 +76,7 @@ export default function Reveal() {
                             <form onSubmit={handleRate} className="flex flex-col gap-6">
                                 <h3 className="text-lg font-bold text-center text-[var(--md-sys-color-on-surface)]">{t('reveal.rating_title')}</h3>
 
-                                <div className="space-y-2">
-                                    <label className="flex justify-between text-sm text-[var(--md-sys-color-on-surface-variant)]">
-                                        <span>{t('reveal.story')}</span>
-                                        <span className="font-bold text-[var(--md-sys-color-primary)]">{scores.story}</span>
-                                    </label>
-                                    <input
-                                        type="range" min="1" max="10" value={scores.story}
-                                        onChange={(e) => setScores({ ...scores, story: Number(e.target.value) })}
-                                        className="w-full accent-[var(--md-sys-color-primary)] h-2 bg-[var(--md-sys-color-surface-variant)] rounded-lg appearance-none cursor-pointer"
-                                        disabled={isSubmitting}
-                                    />
-                                </div>
+
 
                                 <div className="space-y-2">
                                     <label className="flex justify-between text-sm text-[var(--md-sys-color-on-surface-variant)]">

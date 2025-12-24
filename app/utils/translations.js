@@ -9,7 +9,7 @@ export const translations = {
         'login.title_1': '歡迎加入',
         'login.title_2': '2025年年底強檔活動',
         'login.title_3': '交換禮物',
-        'login.subtitle': '主題:眾裡尋它千百度',
+        'login.subtitle': '主題:二次利用不浪費',
         'login.placeholder': '您的暱稱',
         'login.button': '加入活動',
 
@@ -51,15 +51,22 @@ export const translations = {
         'bidding.col_bidder': '玩家',
         'bidding.col_amount': '金額',
         'bidding.tie_msg': '最高出價相同，已隨機選擇得主 🎲',
+        'bidding.anonymous': '神秘參加者',
         'bidding.skipped_title': '流標確認',
         'bidding.skipped_msg': '因多位玩家出價 0，本禮物將延後至最後重新競標。',
+        'reason.tie_random': '最高出價為 %s (共 %s 人)。隨機選中: %s。',
+        'reason.highest_bid': '最高出價者為 %s (%s)。',
+        'reason.skipped_zero': '多位玩家出價 0，禮物流標並延後競標。',
+        'reason.no_bids': '無人下標，禮物流標並延後競標。',
+        'reason.force_assign': '因為二次流標，系統強制隨機分配給：%s。',
+        'reason.mercy': ' (補償 1 枚代幣)',
 
         // Reveal
         'reveal.title': '開獎時刻',
         'reveal.winner': '得主',
         'reveal.reason': '獲勝原因',
         'reveal.rating_title': '禮物評分',
-        'reveal.story': '故事性',
+
         'reveal.utility': '實用性',
         'reveal.attraction': '吸引力',
         'reveal.submit_rating': '提交評分',
@@ -76,6 +83,7 @@ export const translations = {
         'results.confirm_restart_msg': '這將會清除所有遊戲數據並回到初始畫面。確定要執行嗎？',
         'results.confirm_yes': '確定',
         'results.confirm_no': '取消',
+        'results.anonymous_player': '神秘參加者',
 
         // Global Reset
         'reset.confirm_1': '確定要強制重置整個遊戲嗎？所有進度將會遺失！',
@@ -108,7 +116,7 @@ export const translations = {
         'rules.bidding_title': '競標機制',
         'rules.bidding_content': '玩家根據提示出價，價高者得。若最高價相同(>0)則隨機決定；若皆為0分則流標(延後競標)。',
         'rules.rating_title': '評分標準',
-        'rules.rating_content': '• 故事性：送禮理由與主題契合度。\n• 實用性：平時是否實用 (1分=垃圾 / 10分=非常實用)。\n• 吸引力：外觀、氣味、顏色等整體吸引力。',
+        'rules.rating_content': '• 實用性：平時是否實用 (1分=垃圾 / 10分=非常實用)。\n• 吸引力：外觀、氣味、顏色等整體吸引力。',
     },
     'en': {
         // General
@@ -117,8 +125,10 @@ export const translations = {
         'unknown_phase': 'Unknown Phase',
 
         // Login
-        'login.title': 'Gift Exchange',
-        'login.subtitle': 'Enter your nickname to join',
+        'login.title_1': 'Welcome to',
+        'login.title_2': 'The Best Event of 2025',
+        'login.title_3': 'Gift Exchange',
+        'login.subtitle': 'Theme: Sustainability, Give it a second life',
         'login.placeholder': 'Nickname',
         'login.button': 'Join Event',
 
@@ -128,6 +138,11 @@ export const translations = {
         'submit.hint_placeholder': 'Hint about your gift...',
         'submit.button': 'Submit Gift',
         'submit.waiting': 'Waiting for other players...',
+        'submit.example_title': 'Example',
+        'submit.example_gift': 'Gift: Jay Chou\'s Iron Box',
+        'submit.example_hint1': 'Hint 1: The best tool for storage',
+        'submit.example_hint2': 'Hint 2: Even the Asian superstar loves it',
+        'submit.example_hint3': 'Hint 3: Why is it like this',
 
         // Waiting Room
         'waiting.title': 'Waiting Room',
@@ -153,8 +168,15 @@ export const translations = {
         'bidding.col_bidder': 'Bidder',
         'bidding.col_amount': 'Amount',
         'bidding.tie_msg': 'Highest bids tied. Winner selected randomly 🎲',
+        'bidding.anonymous': 'Secret Bidder',
         'bidding.skipped_title': 'Gift Skipped',
         'bidding.skipped_msg': 'Due to multiple 0-token bids, this gift has been moved to the end of the queue.',
+        'reason.tie_random': 'Highest bid %s (%s players). Randomly selected: %s.',
+        'reason.highest_bid': 'Highest bidder is %s (%s).',
+        'reason.skipped_zero': 'Multiple 0-token bids. Gift skipped.',
+        'reason.no_bids': 'No bids. Gift skipped.',
+        'reason.force_assign': 'Force assigned to: %s.',
+        'reason.mercy': ' (Compensated 1 token)',
         'bidding.already_won': 'You have already won a gift.',
         'bidding.own_gift': 'This is your gift.',
         'bidding.placed': 'Bid Placed',
@@ -166,7 +188,7 @@ export const translations = {
         'reveal.winner': 'Winner',
         'reveal.reason': 'Winning Reason',
         'reveal.rating_title': 'Rate this Gift',
-        'reveal.story': 'Story',
+
         'reveal.utility': 'Utility',
         'reveal.attraction': 'Attraction',
         'reveal.submit_rating': 'Submit Rating',
@@ -177,6 +199,7 @@ export const translations = {
         'reveal.rated': 'Rated',
         'reveal.waiting_list': 'Waiting:',
         'reveal.own_gift': 'This is your gift.',
+        'reveal.waiting_completion': 'Waiting for others to finish rating...',
 
         // Results
         'results.title': 'Final Results',
@@ -189,6 +212,7 @@ export const translations = {
         'results.confirm_restart_msg': 'This will clear all game data and return to the login screen. Are you sure?',
         'results.confirm_yes': 'Yes',
         'results.confirm_no': 'Cancel',
+        'results.anonymous_player': 'Secret Participant',
 
         // Global Reset
         'reset.confirm_1': 'Are you sure you want to reset the game? All progress will be lost!',
@@ -207,6 +231,6 @@ export const translations = {
         'rules.bidding_title': 'Bidding',
         'rules.bidding_content': 'Bid based on hints. Highest wins. Ties (>0) are random. 0-ties skip the gift.',
         'rules.rating_title': 'Rating Criteria',
-        'rules.rating_content': '• Story: Relevance to theme.\n• Utility: Practicality (1=Trash / 10=Very Useful).\n• Attraction: Overall appeal (looks, smell, etc).',
+        'rules.rating_content': '• Utility: Practicality (1=Trash / 10=Very Useful).\n• Attraction: Overall appeal (looks, smell, etc).',
     }
 };

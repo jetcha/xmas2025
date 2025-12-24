@@ -250,7 +250,7 @@ function resolveGift(gift, users) {
                 forceAssign(gift, users);
             } else {
                 gift.winner = 'SKIPPED';
-                gift.reason = '多位玩家出價 0，禮物流標並延後競標。';
+                gift.reason = { key: 'reason.skipped_zero', params: [] };
             }
             return;
         }
@@ -263,7 +263,11 @@ function resolveGift(gift, users) {
         const bidDetails = gift.rankings.map(b => `${b.bidder} (${b.amount})`).join(', ');
         if (potentialWinners.length > 1) {
             const tiedNames = potentialWinners.map(w => w.bidder).join(', ');
-            gift.reason = `最高出價為 ${maxBid} (${tiedNames})。隨機選中: ${gift.winner}。`;
+            // Anonymize reason: Don't show names of tied players, just count
+            gift.reason = {
+                key: 'reason.tie_random',
+                params: [maxBid, potentialWinners.length, gift.winner]
+            };
 
             // 6. Mercy Rule
             // If someone tied for max bid but lost, AND has 0 tokens, give 1 token back.
@@ -272,12 +276,15 @@ function resolveGift(gift, users) {
                     const loserUser = users.find(u => u.name === loser.bidder);
                     if (loserUser && loserUser.tokens === 0) {
                         loserUser.tokens = 1;
-                        gift.reason += ` (補償 ${loser.bidder} 1 枚代幣)`;
+                        gift.reason.mercy = true;
                     }
                 }
             });
         } else {
-            gift.reason = `最高出價者為 ${gift.winner} (${maxBid})。`;
+            gift.reason = {
+                key: 'reason.highest_bid',
+                params: [gift.winner, maxBid]
+            };
         }
     } else {
         // No Bids
@@ -286,7 +293,7 @@ function resolveGift(gift, users) {
             forceAssign(gift, users);
         } else {
             gift.winner = 'SKIPPED'; // Changed from NO_BIDDER to SKIPPED to recycle
-            gift.reason = '無人下標，禮物流標並延後競標。';
+            gift.reason = { key: 'reason.no_bids', params: [] };
         }
     }
 }
@@ -304,9 +311,9 @@ function forceAssign(gift, users) {
     if (eligible.length > 0) {
         const winnerUser = eligible[Math.floor(Math.random() * eligible.length)];
         gift.winner = winnerUser.name;
-        gift.reason = `因為二次流標，系統強制隨機分配給：${winnerUser.name}。`;
+        gift.reason = { key: 'reason.force_assign', params: [winnerUser.name] };
     } else {
         gift.winner = 'UNASSIGNABLE'; // Should rarely happen unless mathematical impossibility
-        gift.reason = '因為二次流標且無合適候選人（其餘皆已得獎）。';
+        gift.reason = { key: 'reason.force_assign', params: ['UNASSIGNABLE'] }; // Reuse key for now or add new one if strictly needed
     }
 }

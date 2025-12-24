@@ -107,7 +107,9 @@ export default function Bidding() {
                                             >
                                                 <td className="py-2 pl-2 text-left flex items-center gap-2">
                                                     {bid.bidder === currentGift.winner && <span>👑</span>}
-                                                    {bid.bidder}
+                                                    {bid.bidder === currentGift.winner
+                                                        ? bid.bidder
+                                                        : (bid.bidder === user.name ? 'You' : t('bidding.anonymous'))}
                                                 </td>
                                                 <td className="py-2 pr-2 text-right">{bid.amount}</td>
                                             </tr>
@@ -128,7 +130,9 @@ export default function Bidding() {
                         {currentGift.reason && (
                             <div className="mb-4 text-center p-3 bg-[var(--md-sys-color-tertiary-container)]/50 rounded-lg animate-pulse">
                                 <p className="text-[var(--md-sys-color-tertiary)] font-bold text-sm">
-                                    {currentGift.reason}
+                                    {typeof currentGift.reason === 'string'
+                                        ? currentGift.reason
+                                        : (t(currentGift.reason.key, ...(currentGift.reason.params || [])) + (currentGift.reason.mercy ? t('reason.mercy') : ''))}
                                 </p>
                             </div>
                         )}

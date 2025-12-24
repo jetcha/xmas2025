@@ -10,7 +10,7 @@ export default function Results() {
     const calculateTotalScore = (giftId) => {
         const giftRatings = state.ratings[giftId] || [];
         if (giftRatings.length === 0) return 0;
-        return giftRatings.reduce((sum, r) => sum + r.story + r.utility + r.attraction, 0);
+        return giftRatings.reduce((sum, r) => sum + r.utility + r.attraction, 0);
     };
 
     const results = state.gifts.map(g => ({
